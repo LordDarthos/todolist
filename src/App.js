@@ -3,7 +3,7 @@ import './App.css';
 import Input from './components/Input'
 import TodoItem from './components/TodoItem.js'
 import { useSelector } from 'react-redux'
-import { selectTodoList } from './features/todoSlice'
+import { selectTodoList, selectDoneTodos } from './features/todoSlice'
 
 // const todoList = [{
 //   item: 'todo',
@@ -16,9 +16,9 @@ import { selectTodoList } from './features/todoSlice'
 // }]
 
 function App() {
-
+  //Pulling state from store
   const todoList = useSelector(selectTodoList)
-
+  const doneTodos = useSelector(selectDoneTodos)
   return (
     <div className="app">
       <div className="app_container">
@@ -26,13 +26,15 @@ function App() {
           {
             todoList.map(item => (
               <TodoItem
-                name={item.item}
+                name={item.name}
                 done={item.done}
                 id={item.id}
+                key={item.id}
                 />
             ))
           }
         </div>
+        <p>Total done todos: {doneTodos.length}</p>
         <Input />
       </div>   
     </div>

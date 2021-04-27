@@ -1,27 +1,29 @@
 import React, { useState } from 'react';
 import './Input.css';
 
-import {useDispatch} from 'react-redux';
-import saveTodo from '../features/todoSlice'
+import { useDispatch } from 'react-redux';
+import { addTodo } from '../features/todoSlice'
 
 const Input = () => {
     const [input, setInput] = useState('')
+    //Dispatching AddTodo action
     const dispatch = useDispatch()
 
-    const addTodo = () => {
-        console.log(`Adding ${input}`)
-
-        dispatch(saveTodo({
-            item: input,
-            done: false,
-            id: Date.now()
-        }))
+    const addTodoHandler = (e) => {
+        e.preventDefault()
+        dispatch(
+            addTodo({
+                name: input,
+                done: false,
+                id: Date.now()
+            })
+        )
     }
 
     return (
         <div className="input">
             <input type="text" value={input} onChange={e=>setInput(e.target.value)}/>
-            <button onClick={addTodo}>Add!</button>
+            <button onClick={addTodoHandler}>Add!</button>
         </div>
     )
 }
